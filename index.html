@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Migration Dashboard - Migrate metadata and/or data between environments with ease.">
+    <!-- iframe compatibility -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Migration Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.4">
+    <style>
+        /* Inline critical iframe styles so they load immediately */
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="main-header">
+        <div class="header-left">
+            <img src="donyati_logo.png" alt="Donyati Logo" class="header-donyati-logo">
+            <h1 class="header-title">Data Migration Dashboard</h1>
+        </div>
+        <div class="header-right">
+            <div class="user-menu">
+                <i class="fas fa-user-circle user-avatar"></i>
+                <span class="user-name">EPM Admin</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Donyati Info Box -->
+            <div class="sidebar-info-box">
+                <div class="info-box-logo">
+                    <img src="donyati_logo.png" alt="Donyati" class="info-box-logo-img">
+                </div>
+                <div class="info-box-header">
+                    <i class="fas fa-cubes"></i>
+                    <span>Donyati EPM Toolkit</span>
+                </div>
+                <p class="info-box-text">This dashboard is built by Donyati to help EPM users simplify and accelerate data movements between environments.</p>
+                <div class="info-box-features">
+                    <div class="feature-item"><i class="fas fa-check"></i><span>Seamless Environment Sync</span></div>
+                    <div class="feature-item"><i class="fas fa-check"></i><span>Secure Data Masking</span></div>
+                    <div class="feature-item"><i class="fas fa-check"></i><span>Metadata Validation</span></div>
+                    <div class="feature-item"><i class="fas fa-check"></i><span>One-Click Migration</span></div>
+                    <div class="feature-item"><i class="fas fa-check"></i><span>Audit & Compliance Logs</span></div>
+                </div>
+                <div class="info-box-footer">
+                    <a href="https://www.donyati.com" target="_top" class="info-link">
+                        <span>Visit donyati.com</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <span>v1.0.0</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <div class="page-header">
+                <p class="page-subtitle">Migrate metadata and/or data between environments.</p>
+            </div>
+
+            <!-- Step Indicator -->
+            <div class="step-indicator" id="step-indicator">
+                <div class="step-item active" data-step="1" id="step-ind-1">
+                    <div class="step-circle">
+                        <span class="step-number">1</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <span class="step-label">Target Environment</span>
+                </div>
+                <div class="step-line" id="step-line-1"></div>
+                <div class="step-item" data-step="2" id="step-ind-2">
+                    <div class="step-circle">
+                        <span class="step-number">2</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <span class="step-label">Application</span>
+                </div>
+                <div class="step-line" id="step-line-2"></div>
+                <div class="step-item" data-step="3" id="step-ind-3">
+                    <div class="step-circle">
+                        <span class="step-number">3</span>
+                        <i class="fas fa-check step-check"></i>
+                    </div>
+                    <span class="step-label">Migration Options</span>
+                </div>
+            </div>
+
+            <!-- Wizard Card Container -->
+            <div class="wizard-card" id="wizard-card">
+
+                <!-- Step 1: Target Environment -->
+                <div class="wizard-step active" id="wizard-step-1">
+                    <div class="wizard-step-header">
+                        <span class="wizard-step-icon"><i class="fas fa-bullseye"></i></span>
+                        <h3 class="wizard-step-title">Target Environment Details</h3>
+                    </div>
+                    <div class="wizard-step-body">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Target URL
+                                <i class="fas fa-info-circle tooltip-icon" title="The URL of the target environment"></i>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-globe input-icon"></i>
+                                <input type="url" class="form-input" id="target-url" placeholder="https://target-env.epm.us-ashburn-1.ocs.oraclecloud.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Username
+                                <i class="fas fa-info-circle tooltip-icon" title="Username for authentication"></i>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" class="form-input" id="username" placeholder="Enter username" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Password
+                                <i class="fas fa-info-circle tooltip-icon" title="Password for authentication"></i>
+                            </label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-lock input-icon"></i>
+                                <input type="password" class="form-input" id="password" placeholder="Enter password" required>
+                                <button class="password-toggle" id="password-toggle" aria-label="Toggle password visibility">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Application Details -->
+                <div class="wizard-step" id="wizard-step-2">
+                    <div class="wizard-step-header">
+                        <span class="wizard-step-icon"><i class="fas fa-th-large"></i></span>
+                        <h3 class="wizard-step-title">Application Details</h3>
+                    </div>
+                    <div class="wizard-step-body">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Select Application
+                                <i class="fas fa-info-circle tooltip-icon" title="Select the target application"></i>
+                            </label>
+                            <input type="hidden" id="app-name" value="ALL">
+                            <div class="app-tiles" id="app-tiles">
+                                <div class="app-tile active" data-value="ALL">
+                                    <div class="tile-icon"><i class="fas fa-border-all"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">ALL</span>
+                                        <span class="tile-desc">All EPM Applications</span>
+                                    </div>
+                                </div>
+                                <div class="app-tile" data-value="Plan1">
+                                    <div class="tile-icon"><i class="fas fa-clipboard-list"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">Plan1</span>
+                                        <span class="tile-desc">Primary Planning Application</span>
+                                    </div>
+                                </div>
+                                <div class="app-tile" data-value="Financials">
+                                    <div class="tile-icon"><i class="fas fa-coins"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">Financials</span>
+                                        <span class="tile-desc">Financial Planning & Analysis</span>
+                                    </div>
+                                </div>
+                                <div class="app-tile" data-value="Workforce">
+                                    <div class="tile-icon"><i class="fas fa-users"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">Workforce</span>
+                                        <span class="tile-desc">Workforce & Compensation</span>
+                                    </div>
+                                </div>
+                                <div class="app-tile" data-value="Capital">
+                                    <div class="tile-icon"><i class="fas fa-landmark"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">Capital</span>
+                                        <span class="tile-desc">Capital Asset Planning</span>
+                                    </div>
+                                </div>
+                                <div class="app-tile" data-value="Projects">
+                                    <div class="tile-icon"><i class="fas fa-project-diagram"></i></div>
+                                    <div class="tile-details">
+                                        <span class="tile-name">Projects</span>
+                                        <span class="tile-desc">Project Financial Planning</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Migration Options -->
+                <div class="wizard-step" id="wizard-step-3">
+                    <div class="wizard-step-header">
+                        <span class="wizard-step-icon"><i class="fas fa-sliders-h"></i></span>
+                        <h3 class="wizard-step-title">Migration Options</h3>
+                    </div>
+                    <div class="wizard-step-body">
+                        <div class="form-group">
+                            <label class="form-label">
+                                Migration Type
+                                <i class="fas fa-info-circle tooltip-icon" title="Choose what to migrate"></i>
+                            </label>
+                            <div class="migration-type-toggle" id="migration-type-toggle">
+                                <button class="toggle-btn" data-value="Metadata" id="btn-metadata">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Metadata</span>
+                                </button>
+                                <button class="toggle-btn" data-value="Data" id="btn-data">
+                                    <i class="fas fa-database"></i>
+                                    <span>Data</span>
+                                </button>
+                                <button class="toggle-btn active" data-value="Both" id="btn-both">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>Both</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                Mask Data
+                                <i class="fas fa-info-circle tooltip-icon" title="Enable data masking"></i>
+                            </label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="mask-data" value="yes" checked id="mask-yes">
+                                    <span class="radio-custom"></span>
+                                    Yes
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="mask-data" value="no" id="mask-no">
+                                    <span class="radio-custom"></span>
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="wizard-nav" id="wizard-nav">
+                <button class="btn btn-back" id="btn-back" style="visibility: hidden;">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+                <button class="btn btn-next" id="btn-next">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-submit" id="btn-submit" style="display: none;">
+                    <i class="fas fa-paper-plane"></i> Submit
+                </button>
+            </div>
+
+            <!-- Live Status Panel -->
+            <div class="overview-panel" id="live-status-panel" style="display: none;">
+                <div class="overview-panel-header">
+                    <div class="overview-panel-title">
+                        <i class="fas fa-sync fa-spin" id="status-icon" style="color: var(--info);"></i>
+                        <h3 id="status-title">Migration In Progress</h3>
+                    </div>
+                    <div class="overview-panel-actions" style="gap: 16px; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500;">
+                        <span id="start-time-display"><i class="fas fa-play" style="font-size: 0.75rem; margin-right: 4px;"></i> Start: --:--:--</span>
+                        <span id="end-time-display"><i class="fas fa-stop" style="font-size: 0.75rem; margin-right: 4px;"></i> End: --:--:--</span>
+                        <span id="duration-display"><i class="fas fa-hourglass-half" style="font-size: 0.75rem; margin-right: 4px;"></i> Duration: 0s</span>
+                    </div>
+                </div>
+                
+                <div style="padding: 24px;">
+                    <!-- Live Stepper Progress Taskbar -->
+                    <div class="live-stepper" id="live-stepper">
+                        <div class="live-step-item" id="live-step-1">
+                            <div class="live-step-circle">1</div>
+                            <span class="live-step-label">Connecting Source</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-1"></div>
+                        <div class="live-step-item" id="live-step-2">
+                            <div class="live-step-circle">2</div>
+                            <span class="live-step-label">ExportFSData</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-2"></div>
+                        <div class="live-step-item" id="live-step-3">
+                            <div class="live-step-circle">3</div>
+                            <span class="live-step-label">Download iexp.zip</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-3"></div>
+                        <div class="live-step-item" id="live-step-4">
+                            <div class="live-step-circle">4</div>
+                            <span class="live-step-label">Connecting Target</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-4"></div>
+                        <div class="live-step-item" id="live-step-5">
+                            <div class="live-step-circle">5</div>
+                            <span class="live-step-label">Upload iexp.zip</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-5"></div>
+                        <div class="live-step-item" id="live-step-6">
+                            <div class="live-step-circle">6</div>
+                            <span class="live-step-label">Import Plan1 Data</span>
+                        </div>
+                        <div class="live-step-line" id="live-line-6"></div>
+                        <div class="live-step-item" id="live-step-7">
+                            <div class="live-step-circle">7</div>
+                            <span class="live-step-label">Complete</span>
+                        </div>
+                    </div>
+
+                    <!-- Progress Percentage Meter -->
+                    <div class="live-progress-container" style="display: flex; align-items: center; gap: 16px; margin: 24px 0 16px 0;">
+                        <div style="flex: 1; height: 10px; background: rgba(255,255,255,0.06); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid rgba(255,255,255,0.08);">
+                            <div id="live-progress-bar" style="width: 0%; height: 100%; background: var(--info); transition: width 0.3s ease;"></div>
+                        </div>
+                        <span id="live-progress-percent" style="font-weight: 700; font-size: 1.1rem; color: var(--text-white); width: 48px; text-align: right;">0%</span>
+                    </div>
+
+                    <!-- Log Output Box -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">
+                        <span><i class="fas fa-terminal" style="margin-right: 6px;"></i> EPM Automate Output Log</span>
+                        <span id="live-status-badge" class="btn-copy" style="padding: 2px 10px; font-size: 0.72rem; border-radius: 4px; pointer-events: none; border-color: rgba(255,255,255,0.1);">Initializing</span>
+                    </div>
+                    <textarea class="overview-content" id="live-log-output" readonly placeholder="Waiting for EPM Automate execution to begin..."></textarea>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js?v=1.0.5"></script>
+    <script>
+        // iframe detection & postMessage support for Oracle EPM
+        (function() {
+            var isIframe = (window !== window.top);
+            if (isIframe) {
+                document.body.classList.add('iframe-mode');
+                // Notify parent that dashboard is ready
+                try {
+                    window.parent.postMessage({ type: 'MIGRATION_DASHBOARD_READY', status: 'loaded' }, '*');
+                } catch(e) { /* cross-origin silenced */ }
+            }
+
+            // Listen for messages from the Oracle EPM parent
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'EPM_SET_PARAMS') {
+                    // Allow the parent to pre-fill fields
+                    var d = event.data;
+                    if (d.targetUrl) document.getElementById('target-url').value = d.targetUrl;
+                    if (d.username)  document.getElementById('username').value = d.username;
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
